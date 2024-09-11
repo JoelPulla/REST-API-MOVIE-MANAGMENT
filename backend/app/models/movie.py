@@ -1,8 +1,25 @@
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, SQLModel, Relationship
 from datetime import date
 
+"""Movie_Category table pivote """
+class MovieCategory(SQLModel, table= True):
+    category_id : int |  None = Field(default=None, foreign_key="", primary_key=True)  
+    movie_id: int | None = Field(default=None, foreign_key="", primary_key=True)
+    
 
-""" Movie"""
+""" Category """
+class Category(SQLModel, table= True):
+    
+    id: int | None = Field(primary_key=True, default=None,)
+    name: str
+    is_active: bool
+    created_at: date
+    posther_path: str
+    
+    movies: list["Movie"] = Relationship(back_populates="movies", link_model=MovieCategory)
+     
+
+"""Movie"""
 class Movie(SQLModel, table= True):
     
     id: int | None = Field(default=None, primary_key=True)
@@ -18,24 +35,4 @@ class Movie(SQLModel, table= True):
     created_at : date
     release: date
     
-    # #relacion con Category
-    # categories = relationship("CategoryModel", secondary= "movie_category", back_populates="movies" )
-    
-"""Movie_Category table pivote """
-
-
-
-""" Category """
-class Category(SQLModel, table= True):
-    
-    id: int | None = Field(primary_key=True, default=None,)
-    name: str
-    is_active: bool
-    created_at: date
-    posther_path: str
-    
-    
-    
-    # # Relacion con Categorias
-    # movies =  relationship("MovieModel", secondary= "movie_category",  back_populates="categories")
-    
+    categories: list[Category]= Relationship(back_populates="categories", link_model=MovieCategory)
