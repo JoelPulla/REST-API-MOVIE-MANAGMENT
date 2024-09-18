@@ -4,6 +4,7 @@ from backend.app.routes import users, chanels, movies, advertisements
 from backend.app.config.db import init_db
 from contextlib import asynccontextmanager
 from .models.movie import Movie
+from .models.chanels import Chanel
 
 
 @asynccontextmanager
