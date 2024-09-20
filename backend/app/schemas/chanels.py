@@ -2,8 +2,31 @@ from sqlmodel import SQLModel, Field
 from datetime import date
 
 
-class ChanelBase(SQLModel):
     
+########## CategoryTv #######
+
+class CategoryTvBase(SQLModel):
+    name: str 
+    is_active: bool
+    posther_path: str 
+    created_at: date
+    
+class CategooryTvCreate(CategoryTvBase):
+    pass
+
+class CategoryTvPublic(CategoryTvBase):
+    id: int 
+    
+class CategoryTvUpdate(SQLModel):
+    name: str 
+    is_active: bool
+    posther_path: str 
+    created_at: date
+    
+
+########## Chanel #######
+
+class ChanelBase(SQLModel):
     name: str 
     overview: str | None = None
     url: str 
@@ -12,16 +35,26 @@ class ChanelBase(SQLModel):
     created_at: date
     update_at:date
     
-    category_id: int | None = Field(default=None, foreign_key="category.id")
     
-class CreateChanel(ChanelBase):
+    
+class ChanelCreate(ChanelBase):
     pass
-    
-########## CategoryTv #######
 
-class CategoryTvBase(SQLModel):
+class ChanelPublic(ChanelBase):
+    id: int
     
+class ChanelUpdate(SQLModel):
     name: str 
-    is_active: bool
-    posther_path: str 
+    overview: str | None = None
+    url: str 
+    is_active:bool
+    is_youtube : bool
     created_at: date
+    update_at:date
+    
+
+# class ChanelPublicWhitCategoryTv(ChanelPublic):
+#     category: CategoryTvPublic | None = None
+    
+# class CategoryTvWhitChanels(CategoryTvPublic):
+#     chanels: list[ChanelPublic]= []
