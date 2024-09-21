@@ -58,3 +58,10 @@ def create_categorytv(*, session: Session= Depends(get_session), categrytv: Cate
 def read_all_categories(*, session: Session = Depends(get_session)):
     query = session.exec(select(CategoryTv)).all()
     return query
+
+@router.delete('/Category/{id}')
+def delete_category(*, session: Session = Depends(get_session), id:int):
+    query = session.get(CategoryTv, id)
+    session.delete(query)
+    session.commit
+    return {'ok':True}

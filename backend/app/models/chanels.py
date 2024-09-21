@@ -5,6 +5,8 @@ from typing import Optional
 
 class CategoryTv(CategoryTvBase, table = True): 
     id :int = Field(default=None, primary_key=True) 
+    
+    chanels: list["Chanel"] = Relationship(back_populates="categorytv")
 
 
  
