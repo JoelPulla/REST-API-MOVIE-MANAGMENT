@@ -54,7 +54,7 @@ def create_categorytv(*, session: Session= Depends(get_session), categrytv: Cate
     return db_category
 
 
-@router.get('/Categories', response_model=list[CategoryTvPublic])
+@router.get('/Categories    ', response_model=list[CategoryTvPublic])
 def read_all_categories(*, session: Session = Depends(get_session)):
     query = session.exec(select(CategoryTv)).all()
     return query
@@ -65,3 +65,23 @@ def delete_category(*, session: Session = Depends(get_session), id:int):
     session.delete(query)
     session.commit
     return {'ok':True}
+
+
+@router.get('/Category/Chanels/{id}', response_model=CategoryTvWhitChanels)
+def read_cateoryWhitChanel(*, session : Session= Depends(get_session), id:int):
+    query = session.get(CategoryTv, id)
+    
+    if not query:
+        raise HTTPException(status_code=404, detail="No data" )
+    
+    return query
+
+@router.get('/Categories/Chanels', response_model= list[CategoryTvWhitChanels] )
+def read_all_categories_Whit_chanels(*, session:Session = Depends(get_session)):
+    
+    query = session.exec(select(CategoryTv))
+    
+    if not query:
+        raise HTTPException (status_code=404, detail="No data")
+    
+    return query

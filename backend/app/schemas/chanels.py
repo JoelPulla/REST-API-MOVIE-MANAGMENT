@@ -35,6 +35,7 @@ class ChanelBase(SQLModel):
     created_at: date
     update_at:date
     
+    category_id: int = Field(foreign_key="categorytv.id")
     
     
 class ChanelCreate(ChanelBase):
@@ -53,8 +54,8 @@ class ChanelUpdate(SQLModel):
     update_at:date
     
 
-# class ChanelPublicWhitCategoryTv(ChanelPublic):
-#     category: CategoryTvPublic | None = None
+class ChanelPublicWhitCategoryTv(ChanelPublic):
+    category: CategoryTvPublic | None = None
     
-# class CategoryTvWhitChanels(CategoryTvPublic):
-#     chanels: list[ChanelPublic]= []
+class CategoryTvWhitChanels(CategoryTvPublic):
+    chanels: list[ChanelPublic]= []
